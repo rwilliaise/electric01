@@ -2,6 +2,8 @@
 #ifndef VEC2D_H_
 #define VEC2D_H_
 
+#define VEC2D_ZERO ((vec2d) { 0, 0, })
+
 typedef struct {
     double x, y;
 } vec2d;

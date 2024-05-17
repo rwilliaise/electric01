@@ -1,0 +1,4 @@
+electric01.o: electric01.c electric01.h particle.h vec2d.h
+field.o: field.c field.h particle.h vec2d.h electric01.h
+particle.o: particle.c electric01.h particle.h vec2d.h field.h
+vec2d.o: vec2d.c vec2d.h

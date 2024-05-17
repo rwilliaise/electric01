@@ -5,10 +5,12 @@
 #include <stddef.h>
 #include "vec2d.h"
 
+#define PARTICLE_INTERACT_DEADZONE 1e-10
+
 struct particle {
     double charge; // q
     double mass;
-    vec2d pos, vel;
+    vec2d pos, vel, acc;
 };
 
 void particles_update(struct particle *particles, size_t count);
