@@ -8,12 +8,14 @@
 #define ELEMENTARY_CHARGE 1.602176e-19
 #define VACUUM_PERMEABILITY 1.256637e-6
 
-#define RENDER_SCALE 1e4
-#define TIME_SCALE 1e-6
+#define RENDER_SCALE 1e3
+#define TIME_SCALE 5e-5
 
-#define WINDOW_WIDTH 640
-#define WINDOW_HEIGHT 480
-#define BOX_BOUNDS 384
+#define WINDOW_WIDTH 1280
+#define WINDOW_HEIGHT 720
+#define BOX_BOUNDS 512
+
+#define PARTICLES_COUNT 32
 
 #define dbgd(x) printf(#x ": %f\n", x)
 #define dbgb(x) printf(#x ": %s\n", x ? "true" : "false")

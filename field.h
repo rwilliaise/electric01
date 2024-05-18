@@ -8,6 +8,7 @@
 #include "vec2d.h"
 
 #define MAP_RESOLUTION 128
+#define FIELD_MULTIPLIER 1e21
 
 struct field {
     vec2d E_field;

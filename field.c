@@ -19,8 +19,13 @@ struct field field_query(struct particle *particles, size_t count, vec2d pos) {
         double n2 = n * n;
 
         if (n < PARTICLE_INTERACT_DEADZONE) continue;
-        
-        vec2d calc_field = vec2d_scale(rhat, (K_CONSTANT * B->charge) / n2);
+
+        double v2c2 = C_INV_SQ * vec2d_len_sq(B->vel);
+        double stheta = sin(acos(vec2d_dot(r, B->vel)));
+        double trans = (1 - v2c2) / pow(1 - v2c2 * stheta * stheta, 1.5);
+        if (isnan(trans) || isinf(trans)) trans = 1;
+
+        vec2d calc_field = vec2d_scale(rhat, (K_CONSTANT * B->charge * trans) / n2);
         out.B_field += C_INV_SQ * vec2d_cross(B->vel, calc_field);
         out.E_field = vec2d_add(out.E_field, calc_field);
     }
@@ -52,7 +57,7 @@ void map_update(struct map *M, struct particle *particles, size_t count) {
             struct field field = field_query(particles, count, pos);
 
             if (M->type == map_type_magnetic) {
-                uint8_t B = clamp(fabs(field.B_field * 1e16), 0, 255);
+                uint8_t B = clamp(fabs(field.B_field * FIELD_MULTIPLIER / RENDER_SCALE), 0, 255);
                 Color *color = &pixels[j * MAP_RESOLUTION + i];
                 color->r = field.B_field > 0 ? B : 0;
                 color->g = 0;

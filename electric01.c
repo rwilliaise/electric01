@@ -1,13 +1,12 @@
 
 #include "electric01.h"
 #include <raylib.h>
+#include <stdio.h>
 #include <stdlib.h>
 
 #include "field.h"
 #include "particle.h"
 #include "vec2d.h"
-
-#define PARTICLES_COUNT 32
 
 double randf(double min, double max) {
     double r = rand() / (double) RAND_MAX;
@@ -23,14 +22,14 @@ double clamp(double x, double min, double max) {
 }
 
 int main(void) {
-    InitWindow(640, 480, "electric01");
+    InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "electric01");
 
     struct particle particles[PARTICLES_COUNT];
 
     double bounds = BOX_BOUNDS / (double) RENDER_SCALE;
     for (int i = 0; i < PARTICLES_COUNT; i++) {
         struct particle *P = &particles[i];
-        double scale = randf(-4, 4);
+        double scale = randf(1, 4);
         P->charge = scale * ELEMENTARY_CHARGE;
         P->mass = scale * ELECTRON_MASS;
         P->pos = (vec2d) {
@@ -45,6 +44,8 @@ int main(void) {
     }
 
     SetTargetFPS(60);
+
+    printf("bounds of box: %f m by %f m\n", bounds, bounds);
 
     struct map magnetic_field_map = map_create(map_type_magnetic);
 
